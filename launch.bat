@@ -1,0 +1,2 @@
+ECHO
+py gifmaker.py
