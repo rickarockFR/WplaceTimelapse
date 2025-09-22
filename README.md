@@ -19,7 +19,7 @@ Instructions when running the script should be very clear, please tell me if the
 
 You can download the necessary files [here](https://github.com/rickarockFR/WplaceTimelapse/raw/refs/heads/main/scripts.zip).
 
-You will need to have [Python 3](https://www.python.org/downloads/), with the Pillow and ImageIO libraries. You can download these by either running the "requirements.bat" file, or getting them manually by following [this tutorial](https://packaging.python.org/en/latest/tutorials/installing-packages/).
+You will need to have [Python 3](https://www.python.org/downloads/) downloaded, along with the Pillow and ImageIO libraries. You can download these by either running the "requirements.bat" file, or getting them manually by following [this tutorial](https://packaging.python.org/en/latest/tutorials/installing-packages/).
 
 You can run the script on Windows by running the "launch.bat" file.  
 If you're on Linux, I assume you don't need help running a ***python script***.
