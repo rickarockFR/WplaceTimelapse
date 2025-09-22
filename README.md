@@ -9,7 +9,7 @@ Also, because of the way the snapshot bucket works, **making a gif out of only a
 Currently, the script allow you to:
 - Decide which snapshot name to download from (check snapshot region on the snapshot viewer)
 - Crop the gif to a specific part using wplace coordinates and the width / height
-- Which timeframe to download snapshots from (using unix time, [you can use this converter](https://www.unixtimestamp.com/))
+- Which timeframe to download snapshots from (using unix time, [you can use this converter](https://www.unixtimestamp.com/)). I recommend looking at when the creation of your art started and ended in the snapshot browser, as limiting the timeframe of your gif severely cuts down the time it takes to generate and avoids long periods of nothing at the beginning and end of the gif.
 - What factor to downscale the image by (heavily recommended for big pieces, as this takes up a lot of memory)
 - And, most obviously, **generate a gif from which options you chose! yay!!!**
 
