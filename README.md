@@ -11,13 +11,15 @@ Currently, the script allow you to:
 - Crop the gif to a specific part using wplace coordinates and the width / height
 - Which timeframe to download snapshots from (using unix time, [you can use this converter](https://www.unixtimestamp.com/))
 - What factor to downscale the image by (heavily recommended for big pieces, as this takes up a lot of memory)
+- And, most obviously, **generate a gif from which options you chose! yay!!!**
 
-Instructions in the script should be very clear
+Instructions when running the script should be very clear, please tell me if they aren't.
 
 # How to use
-You will need to have [Python 3](https://www.python.org/downloads/), with the [Pillow](https://pypi.org/project/pillow/) and [ImageIO](https://pypi.org/project/imageio/) libraries. [(Here's how to download packages on Python)](https://packaging.python.org/en/latest/tutorials/installing-packages/)
 
-You will need both the download.py and gifmaker.py files in the same folder, which you can download [here](scripts.zip)
+You can download the necessary files [here](https://github.com/rickarockFR/WplaceTimelapse/raw/refs/heads/main/scripts.zip).
 
-How to run the script on Windows: (if you are on linux, I assume you know how to use python)  
-Open 
+You will need to have [Python 3](https://www.python.org/downloads/), with the Pillow and ImageIO libraries. You can download these by either running the "requirements.bat" file, or getting them manually by following [this tutorial](https://packaging.python.org/en/latest/tutorials/installing-packages/).
+
+You can run the script on Windows by running the "launch.bat" file.  
+If you're on Linux, I assume you don't need help running a ***python script***.
