@@ -17,7 +17,7 @@ Instructions in the script should be very clear
 # How to use
 You will need to have [Python 3](https://www.python.org/downloads/), with the [Pillow](https://pypi.org/project/pillow/) and [ImageIO](https://pypi.org/project/imageio/) libraries. [(Here's how to download packages on Python)](https://packaging.python.org/en/latest/tutorials/installing-packages/)
 
-You will need both the [download.py](download.py) and [gifmaker.py](gifmaker.py) files in the same folder.
+You will need both the download.py and gifmaker.py files in the same folder, which you can download [here](scripts.zip)
 
 How to run the script on Windows: (if you are on linux, I assume you know how to use python)  
 Open 
