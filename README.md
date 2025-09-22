@@ -23,3 +23,5 @@ You will need to have [Python 3](https://www.python.org/downloads/) downloaded, 
 
 You can run the script on Windows by running the "launch.bat" file.  
 If you're on Linux, I assume you don't need help running a ***python script***.
+
+I also recommend opening the gif in an image editing software to then re-export it. I personally use aseprite for that, but any software that can open gifs will probably work.
