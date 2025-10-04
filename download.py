@@ -1,63 +1,35 @@
-import requests
-import xml.etree.ElementTree as ET
-import PIL.Image as Image
-from os.path import isfile
-
-def save_image(path, link, data):
-    imagedata = requests.get(link)
-    with open('backups/'+path+'.png', 'wb') as f:
-        f.write(imagedata.content)
-        f.close()
-    with open('backups/'+path+'.txt', 'w') as f:
-        f.write(data)
-        f.close()
+import boto3
+import botocore.client
 
 
-data = requests.get('https://objects.hydn.us/wplace-archive/')
-
-root = ET.fromstring(data.content)
-
-filename = ''
-lastmodified = ''
-fullname = ''
+S3_ENDPOINT_URL = "https://objects.hydn.us/"
+S3_BUCKET_NAME = "wplace-archive"
+S3_REGION = "phx1"
 
 image_list = []
+def fetch_all_snapshots(s3, bucket: str):# -> list[Snapshot]:
+    paginator = s3.get_paginator("list_objects_v2")
+    pages = paginator.paginate(Bucket=bucket, Prefix="full/")
 
-for child in root:
-    for child2 in child:
-        if "Key" in child2.tag and 'full/' in child2.text:
-            #print (child2.text)
-            filename = child2.text
-        if 'LastModified' in child2.tag:
-            #print(child2.text)
-            lastmodified = child2.text
-    if filename != '':
-        fullname = filename
-        filename = filename.replace('.png','')
-        filename = filename.replace('full/','')
-        filename = filename.split('-')
-        #filename[1] = filename[1]+'.png'
+    #snapshots: list[Snapshot] = []
+    for page in pages:
+        for obj in page.get("Contents", []):
+            key = obj.get("Key", "")
 
-        lastmodified = lastmodified.replace('Z','')
-        lastmodified = lastmodified.split('T')
+            fullname = key
+            key = key.replace('.png','')
+            key = key.replace('full/','')
+            key = key.split('-')
+            
+            image_list.append([key[1], f'https://objects.hydn.us/wplace-archive/{fullname}', key[2], key[3], key[0], int(key[4]), int(key[5])])
 
-        #print(fullname)
-        #print(filename[1])
-        #print(filename[2], filename[3])
-        #print(lastmodified[0], lastmodified[1])
+s3 = boto3.client(
+    's3',   # type: ignore
+    region_name=S3_REGION,
+    endpoint_url=S3_ENDPOINT_URL,
+    config=botocore.client.Config(signature_version=botocore.UNSIGNED)
+)
 
-        #if isfile(f'backups/{filename[1]}.png') and isfile(f'backups/{filename[1]}.txt'):
-        #    print("exists lol")
-        #    with open(f'backups/{filename[1]}.txt', 'w') as f:
-        #        f.write(f'{filename[2]};;;{filename[3]};;;{filename[0]}')
-        #else:
-        #    save_image(filename[1], f'https://objects.hydn.us/wplace-archive/{fullname}', f'{filename[2]};;;{filename[3]};;;{filename[0]}')
-        image_list.append([filename[1], f'https://objects.hydn.us/wplace-archive/{fullname}', filename[2], filename[3], filename[0]])
-        
-        
 
-    #print()
-    filename = ''
-    lastmodified = ''
+fetch_all_snapshots(s3, S3_BUCKET_NAME)
 
-image_list.sort(key=lambda tup: tup[0])

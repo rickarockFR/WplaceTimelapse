@@ -9,7 +9,7 @@ Also, because of the way the snapshot bucket works, **making a gif out of only a
 Currently, the script allow you to:
 - Decide which snapshot name to download from (check snapshot region on the snapshot viewer)
 - Crop the gif to a specific part using wplace coordinates and the width / height
-- Which timeframe to download snapshots from (using unix time, [you can use this converter](https://www.unixtimestamp.com/)). I recommend looking at when the creation of your art started and ended in the snapshot browser, as limiting the timeframe of your gif severely cuts down the time it takes to generate and avoids long periods of nothing at the beginning and end of the gif.
+- Which timeframe to download snapshots from (using unix time, [you can use this converter](https://www.unixtimestamp.com/))
 - What factor to downscale the image by (heavily recommended for big pieces, as this takes up a lot of memory)
 - And, most obviously, **generate a gif from which options you chose! yay!!!**
 
@@ -19,9 +19,7 @@ Instructions when running the script should be very clear, please tell me if the
 
 You can download the necessary files [here](https://github.com/rickarockFR/WplaceTimelapse/raw/refs/heads/main/scripts.zip).
 
-You will need to have [Python 3](https://www.python.org/downloads/) downloaded, along with the Requests, Pillow and ImageIO libraries. You can download the libraries by either running the "requirements.bat" file, or getting them manually by following [this tutorial](https://packaging.python.org/en/latest/tutorials/installing-packages/).
+You will need to have [Python 3](https://www.python.org/downloads/) downloaded, along with the Pillow, ImageIO, Requests and Boto3 libraries. You can download the libraries by either running the "requirements.bat" file, or getting them manually by following [this tutorial](https://packaging.python.org/en/latest/tutorials/installing-packages/).
 
 You can run the script on Windows by running the "launch.bat" file.  
-If you're on Linux, I assume you don't need help running a ***python script***.
-
-I also recommend opening the gif in an image editing software to then re-export it. I personally use aseprite for that, but any software that can open gifs will probably work.
+If you're on Linux, I assume you don't need help running a ***python script***. (I also can't be bothered to make more instructions.)

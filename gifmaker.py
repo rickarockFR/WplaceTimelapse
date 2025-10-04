@@ -41,9 +41,9 @@ while not done:
     entry = download.image_list[i]
     if entry[4] == key:
         done = True
-        image = imageio.plugins.pillow.Image.open(io.BytesIO(get_image(entry[1])))
-        anim_size[0],anim_size[1] = image.size
-        anim_size[0],anim_size[1] = anim_size[0], anim_size[1]
+        
+        anim_size[0],anim_size[1] = entry[5]*1000, entry[6]*1000
+        
         anim_size[2] = int(entry[2])
         anim_size[3] = int(entry[3])
 
@@ -76,7 +76,8 @@ if input_integer('''
 By default, this script will use all available snapshots.
 Do you want to set a timeframe to generate the gif from?
 (Will ask you to enter times in *unix time*. Use a converter online if you need to.)
-Enter 1 if yes, enter 0 if no.''') > 0:
+Enter 1 if yes, enter 0 if no.
+: ''') > 0:
     min_unix = input_integer('Unix time to start from (enter 0 to start from the first snapshots): ')
     max_unix = input_integer('Unix time to end at (enter 0 to go until the most recent snapshots): ')
     if max_unix == 0:
@@ -86,9 +87,11 @@ delays = []
 #delay_overflow = 0
 #total_overflow = 0
 for entryID in range(len(download.image_list)-1):
-    if download.image_list[entryID][4] == key and int(download.image_list[entryID][0]) > min_unix and int(download.image_list[entryID][0]) < max_unix:
+    if download.image_list[entryID][4] == key and int(download.image_list[entryID][0]) >= min_unix and int(download.image_list[entryID][0]) <= max_unix:
         time = (int(download.image_list[entryID+1][0])-int(download.image_list[entryID][0]))//60
         delays.append(time)
+if delays == []:
+    print("\n\nSomething has gone wrong! This script did not find any images with that satisfy the key and timeframe. If you're seeing this and think this shouldn't happen, please contact thefridgecave on discord and tell him his script is haunted again.")
 delays[-1] = 1000
 #delays.append(10000)
 print(f'\nYou will be downloading {len(delays)} frames.\n')
@@ -106,10 +109,10 @@ anim_size[3] = int((anim_size[3]*1000)//scale_factor)
 anim_size[0] = anim_size[0]//scale_factor
 anim_size[1] = anim_size[1]//scale_factor
 
-print('\n\nAll done! You can now sit back and relax while this script downloads everything.\nPlease note that this will take a while, even moreso if you have bad internet.')
+print('\n\nAll done! You can now sit back and relax while this script downloads everything.\nPlease note that this will take a while, even moreso if you have bad internet.\n')
 
 curDelay = 0
-with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writer:
+with imageio.get_writer('out.gif', mode='I', duration=delays, loop=0) as writer:
     for entryID in range(len(download.image_list)):
         entry = download.image_list[entryID]
         if entry[4] == key and int(entry[0]) > min_unix and int(entry[0]) < max_unix:
@@ -122,12 +125,11 @@ with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writ
             #    fullimg.paste(lastimg)
             fullimg.paste(image, (((int(entry[2])*1000)//scale_factor-anim_size[2]),((int(entry[3])*1000)//scale_factor-anim_size[3])))
 
-
             writer.append_data(fullimg)
             #lastimg = fullimg
             #lastpos = ((int(entry[2])-anim_size[2]),(int(entry[3])-anim_size[3]))
 
-            print(entry[4], entry[0], delays[curDelay], f"Frame {curDelay}/{len(delays)}', f'Snapshot taken at {datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(entry[4], entry[0], f"Duration: {delays[curDelay]} / ", f"Frame {curDelay}/{len(delays)} / ", f"Snapshot taken at {datetime.datetime.utcfromtimestamp(int(entry[0])).strftime('%Y-%m-%d %H:%M:%S')}")
             curDelay+=1
             test+=1
 
