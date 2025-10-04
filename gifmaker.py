@@ -76,7 +76,8 @@ if input_integer('''
 By default, this script will use all available snapshots.
 Do you want to set a timeframe to generate the gif from?
 (Will ask you to enter times in *unix time*. Use a converter online if you need to.)
-Enter 1 if yes, enter 0 if no.''') > 0:
+Enter 1 if yes, enter 0 if no.
+''') > 0:
     min_unix = input_integer('Unix time to start from (enter 0 to start from the first snapshots): ')
     max_unix = input_integer('Unix time to end at (enter 0 to go until the most recent snapshots): ')
     if max_unix == 0:
@@ -108,10 +109,10 @@ anim_size[3] = int((anim_size[3]*1000)//scale_factor)
 anim_size[0] = anim_size[0]//scale_factor
 anim_size[1] = anim_size[1]//scale_factor
 
-print('\n\nAll done! You can now sit back and relax while this script downloads everything.\nPlease note that this will take a while, even moreso if you have bad internet.')
+print('\n\nAll done! You can now sit back and relax while this script downloads everything.\nPlease note that this will take a while, even moreso if you have bad internet.\n')
 
 curDelay = 0
-with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writer:
+with imageio.get_writer('out.gif', mode='I', duration=delays, loop=0) as writer:
     for entryID in range(len(download.image_list)):
         entry = download.image_list[entryID]
         if entry[4] == key and int(entry[0]) >= min_unix and int(entry[0]) <= max_unix:
