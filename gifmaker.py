@@ -86,7 +86,7 @@ delays = []
 #delay_overflow = 0
 #total_overflow = 0
 for entryID in range(len(download.image_list)-1):
-    if download.image_list[entryID][4] == key and int(download.image_list[entryID][0]) > min_unix and int(download.image_list[entryID][0]) < max_unix:
+    if download.image_list[entryID][4] == key and int(download.image_list[entryID][0]) >= min_unix and int(download.image_list[entryID][0]) <= max_unix:
         time = (int(download.image_list[entryID+1][0])-int(download.image_list[entryID][0]))//60
         delays.append(time)
 if delays == []:
@@ -114,7 +114,7 @@ curDelay = 0
 with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writer:
     for entryID in range(len(download.image_list)):
         entry = download.image_list[entryID]
-        if entry[4] == key and int(entry[0]) > min_unix and int(entry[0]) < max_unix:
+        if entry[4] == key and int(entry[0]) >= min_unix and int(entry[0]) <= max_unix:
             alphaimage = imageio.plugins.pillow.Image.open(io.BytesIO(get_image(entry[1]))).convert('RGBA')
             alphaimage = alphaimage.resize((alphaimage.size[0]//scale_factor, alphaimage.size[1]//scale_factor))
             image = imageio.plugins.pillow.Image.new('RGBA', alphaimage.size, (255,255,255))
@@ -129,7 +129,6 @@ with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writ
             #lastimg = fullimg
             #lastpos = ((int(entry[2])-anim_size[2]),(int(entry[3])-anim_size[3]))
 
-            print(entry[4], entry[0], delays[curDelay], f"Frame {curDelay+1}/{len(delays)}', f'Snapshot taken at {datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(entry[4], entry[0], delays[curDelay], f"Frame {curDelay}/{len(delays)}', f'Snapshot taken at {datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}")
             curDelay+=1
             test+=1
-
