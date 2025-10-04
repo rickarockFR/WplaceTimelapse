@@ -129,7 +129,7 @@ with imageio.get_writer('out.gif', mode='I', duration=[*delays], loop=0) as writ
             #lastimg = fullimg
             #lastpos = ((int(entry[2])-anim_size[2]),(int(entry[3])-anim_size[3]))
 
-            print(entry[4], entry[0], delays[curDelay], f"Frame {curDelay}/{len(delays)}', f'Snapshot taken at {datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(entry[4], entry[0], delays[curDelay], f"Frame {curDelay+1}/{len(delays)}', f'Snapshot taken at {datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}")
             curDelay+=1
             test+=1
 
